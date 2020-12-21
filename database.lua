@@ -49,19 +49,19 @@ do
     if true then
         accountNum,func,cvv,pin,val = receive
 
-        if func = "verify" then
+        if func == "verify" then
             if cvv == accounts[accountNum]["cvv"] and pin == accounts[accountNum]["pin"] then
                 rednet.send(id, "verified")
             end
         end
 
-        if func = "get" then
+        if func == "get" then
             if pin == accounts[accountNum]["pin"] then
                 rednet.send(id, accounts[accountNum]["bal"])
             end
         end
 
-        if func = "add" then
+        if func == "add" then
             if cvv == accounts[accountNum]["cvv"] and pin == accounts[accountNum]["pin"] then
                 accounts[accountNum]["bal"] = accounts[accountNum]["bal"] + val
             end
