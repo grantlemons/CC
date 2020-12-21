@@ -1,6 +1,7 @@
 databaseID = 12
 cardNumFile = "./disk/accountNumber.txt"
 cvvFile = "./disk/cvv.txt"
+dispenseDelay = 0.1
 
 function getResponse(message)
     rednet.send(databaseID, message)
@@ -25,8 +26,9 @@ end
 function dispense(val)
     for i=0,val,1 do
         redstone.setOutput("back", true)
-        sleep(0.2)
+        sleep(dispenseDelay)
         redstone.setOutput("back", false)
+        sleep(dispenseDelay)
     end
 end
 
@@ -53,6 +55,7 @@ function verify()
         cardcvv = lines_from(cvvFile)[1]
         io.write("PIN: ")
         pinInput = io.read()
+        shell.run("clear")
 
         message = {accountNum,"verify",cardcvv,pinInput,nul}
 
@@ -65,9 +68,13 @@ function verify()
                 io.write("Withdraw Value: ")
                 val = math.abs(io.read())
                 takeBal(accountNum, val)
+                io.write(val.." Diamonds...")
                 dispense(val)
                 io.write("New Balance: "..bal-val.."\n")
             end
+            shell.run("clear")
+        else
+            break
         end
     end
 end
