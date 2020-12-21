@@ -74,5 +74,6 @@ function verify()
 end
 
 while(true)
+do
     verify()
 end
