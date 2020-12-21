@@ -6,7 +6,7 @@ function getResponse(message)
     rednet.send(databaseID, message)
     repeat
         id,response = rednet.receive()
-    until(id = databaseID)
+    until(id == databaseID)
     return response
 end
 
