@@ -71,7 +71,9 @@ do
 
             if func == "add" then
                 accounts[accountNum]["bal"] = accounts[accountNum]["bal"] + val
-                io.write("new bal: "..accounts[accountNum]["bal"])
+                if rednet.send(id, "new bal: "..accounts[accountNum]["bal"]) then
+                    io.write("new bal: "..accounts[accountNum]["bal"])
+                end
             end
         end
     end

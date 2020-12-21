@@ -25,6 +25,7 @@ end
 function dispense(val)
     for i=0,val,1 do
         redstone.setOutput("back", true)
+        sleep(0.2)
         redstone.setOutput("back", false)
     end
 end
@@ -62,7 +63,7 @@ function verify()
             io.write("Withdraw [Y | N]: ")
             if io.read() then
                 io.write("Withdraw Value: ")
-                val = io.read()
+                val = math.abs(io.read())
                 takeBal(accountNum, val)
                 dispense(val)
                 io.write("New Balance: "..bal-val.."\n")
