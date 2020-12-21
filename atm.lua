@@ -4,13 +4,9 @@ cvvFile = "./disk/cvv.txt"
 
 function getResponse(message)
     rednet.send(databaseID, message)
-    while(true)
-    do
+    repeat
         id,response = rednet.receive()
-        if id == databaseID then
-            break
-        end
-    end
+    until(id = databaseID)
     return response
 end
 
@@ -55,7 +51,7 @@ function verify()
         accountNum = lines_from(cardNumFile)[1]
         cardcvv = lines_from(cvvFile)[1]
         io.write("PIN: ")
-        pinInput = io.read("*")
+        pinInput = io.read()
 
         message = {accountNum,"verify",cardcvv,pinInput,nul}
 
