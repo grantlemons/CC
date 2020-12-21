@@ -2,6 +2,9 @@ local authPath = "./disk/auth.txt"
 local accountValues = "./accountValues.txt"
 accounts = {}
 frozenAccounts = {}
+accounts[1] = {}
+accounts[1]["cvv"] = 712
+accounts[1]["pin"] = "3699"
 
 -- see if the file exists
 function file_exists(file)
@@ -47,10 +50,15 @@ do
         end
     else--]]
     if true then
-        accountNum,func,cvv,pin,val = receive
+        accountNum = receive[1]
+        func = receive[2]
+        cvv = receive[3]
+        pin = receive[4]
+        val = receive[5]
 
         if func == "verify" then
             if cvv == accounts[accountNum]["cvv"] and pin == accounts[accountNum]["pin"] then
+                io.write("correctamundo")
                 rednet.send(id, "verified")
             end
         end
