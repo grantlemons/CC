@@ -15,12 +15,12 @@ function getResponse(message)
 end
 
 function getBal(accountID)
-    message = accountID,"get",nul,pinInput,nul
+    message = {accountID,"get",nul,pinInput,nul}
     return getResponse(message)
 end
 
 function takeBal(accountID, val)
-    message = accountID,"add",cvv,pinInput,-val
+    message = {accountID,"add",cvv,pinInput,-val}
     repeat
         answer = getResponse(message)
     until(answer)
@@ -57,7 +57,7 @@ function verify()
         io.write("PIN: ")
         pinInput = io.read("*")
 
-        message = accountNum,"verify",cardcvv,pinInput,nul
+        message = {accountNum,"verify",cardcvv,pinInput,nul}
 
         if getResponse(message) == "verified" then
             io.write("Verified\n")
