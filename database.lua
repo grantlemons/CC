@@ -2,9 +2,10 @@ local authPath = "./disk/auth.txt"
 local accountValues = "./accountValues.txt"
 accounts = {}
 frozenAccounts = {}
-accounts[1] = {}
-accounts[1]["cvv"] = 712
-accounts[1]["pin"] = "3699"
+accounts["1"] = {}
+accounts["1"]["cvv"] = "712"
+accounts["1"]["pin"] = "3699"
+accounts["1"]["bal"] = "1000"
 
 -- see if the file exists
 function file_exists(file)
@@ -27,6 +28,11 @@ end
 while(file_exists(authPath))
 do
     id,receive = rednet.receive()
+    accountNum = receive[1]
+    func = receive[2]
+    cvv = receive[3]
+    pin = receive[4]
+    val = receive[5]
 
     --[[if id in lines_from(authPath) then
         if receive = "%d+ get" then
@@ -50,27 +56,16 @@ do
         end
     else--]]
     if true then
-        accountNum = receive[1]
-        func = receive[2]
-        cvv = receive[3]
-        pin = receive[4]
-        val = receive[5]
-
-        if func == "verify" then
-            if cvv == accounts[accountNum]["cvv"] and pin == accounts[accountNum]["pin"] then
-                io.write("correctamundo")
+        if cvv == accounts[accountNum]["cvv"] and pin == accounts[accountNum]["pin"] then
+            if func == "verify" then
                 rednet.send(id, "verified")
             end
-        end
 
-        if func == "get" then
-            if pin == accounts[accountNum]["pin"] then
+            if func == "get" then
                 rednet.send(id, accounts[accountNum]["bal"])
             end
-        end
 
-        if func == "add" then
-            if cvv == accounts[accountNum]["cvv"] and pin == accounts[accountNum]["pin"] then
+            if func == "add" then
                 accounts[accountNum]["bal"] = accounts[accountNum]["bal"] + val
             end
         end
