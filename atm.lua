@@ -56,8 +56,8 @@ function verify()
         message = {accountNum,"verify",cardcvv,pinInput,nul}
 
         if getResponse(message) == "verified" then
-            bal = getBal(accountNum)
             io.write("Verified\n")
+            bal = getBal(accountNum)
             io.write("Balance: "..bal.."\n")
             io.write("Withdraw [Y | N]: ")
             if io.read() then
