@@ -59,13 +59,13 @@ function verify()
             bal = getBal(accountNum)
             io.write("Verified\n")
             io.write("Balance: "..bal.."\n")
-            io.write("Withdraw [Y | N] ")
+            io.write("Withdraw [Y | N]: ")
             if io.read() then
                 io.write("Withdraw Value: ")
                 val = io.read()
                 takeBal(accountNum, val)
                 dispense(val)
-                io.write("New Balance: "..bal-val)
+                io.write("New Balance: "..bal-val.."\n")
             end
         end
     end
