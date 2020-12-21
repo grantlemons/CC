@@ -60,6 +60,7 @@ do
             if func == "verify" then
                 if rednet.send(id, "verified") then
                     io.write("\nsent verification\n")
+                end
             end
 
             if func == "get" then
