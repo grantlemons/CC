@@ -55,7 +55,7 @@ function verify()
         accountNum = lines_from(cardNumFile)[1]
         cardcvv = lines_from(cvvFile)[1]
         io.write("PIN: ")
-        pinInput = io.read()
+        pinInput = io.read("*")
 
         message = accountNum,"verify",cardcvv,pinInput,nul
 
