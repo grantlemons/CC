@@ -25,7 +25,7 @@ while(file_exists(authPath))
 do
     id,receive = rednet.receive()
 
-    if id in lines_from(authPath) then
+    --[[if id in lines_from(authPath) then
         if receive = "%d+ get" then
 
         end
@@ -45,7 +45,8 @@ do
         if receive = "%d+ create" then
 
         end
-    else
+    else--]]
+    if true then
         accountNum,func,cvv,pin,val = receive
 
         if func = "verify" then
