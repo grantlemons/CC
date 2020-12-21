@@ -2,6 +2,7 @@ databaseID = 12
 cardNumFile = "./disk/accountNumber.txt"
 cvvFile = "./disk/cvv.txt"
 dispenseDelay = 0.1
+shell.run("clear")
 
 function getResponse(message)
     rednet.send(databaseID, message)
@@ -50,6 +51,9 @@ function lines_from(file)
 end
 
 function verify()
+    repeat
+        sleep(2)
+    until (file_exists(cardNumFile) and file_exists(cvvFile))
     if file_exists(cardNumFile) and file_exists(cvvFile) then
         accountNum = lines_from(cardNumFile)[1]
         cardcvv = lines_from(cvvFile)[1]
@@ -73,8 +77,6 @@ function verify()
                 io.write("New Balance: "..bal-val.."\n")
             end
             shell.run("clear")
-        else
-            break
         end
     end
 end
